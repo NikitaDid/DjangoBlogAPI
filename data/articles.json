@@ -1,0 +1,41 @@
+[
+  {
+    "model": "blog.article",
+    "pk": 1,
+    "fields": {
+      "category_id": 2,
+      "title": "Ibuprofen",
+      "text_preview": "Some drig, that should be taken to make you feel beter=). Here is instruction how to take it below.",
+      "text": "Adults and teenagers—400 milligrams (mg) every four to six hours, as needed. Children over 6 months of age—Dose is based on body weight and must be determined by your doctor. The dose usually is 10 milligrams (mg) per kilogram (kg) of body weight every six to eight hours, as needed, up to 40 mg per kg per day.",
+      "publish_date": "2025-04-13 19:13:17.000000 +00:00",
+      "updated_at": "2025-04-13 19:13:17.000000 +00:00",
+      "created_at": "2025-04-13 19:13:17.000000 +00:00"
+    }
+  },
+  {
+    "model": "blog.article",
+    "pk": 2,
+    "fields": {
+      "category_id": 1,
+      "title": "THE BEST PIPLULA EVER",
+      "text_preview": "Better pilula you won't find anywhere.",
+      "text": " So, yeah, its the best pilula in our galaxy. Im telling you, its not even possible to find something like this.",
+      "publish_date": "2025-04-13 19:13:17.000000 +00:00",
+      "updated_at": "2025-04-13 19:13:17.000000 +00:00",
+      "created_at": "2025-04-13 19:13:17.000000 +00:00"
+    }
+  },
+  {
+    "model": "blog.article",
+    "pk": 3,
+    "fields": {
+      "category_id": 2,
+      "title": "the WORST piluls ever",
+      "text_preview": "This thing can easily kill you in a few seconds",
+      "text": " I have literally no idea how i created this, but i somehow did it and from that moment it exist",
+      "publish_date": "2025-04-13 19:13:17.000000 +00:00",
+      "updated_at": "2025-04-13 19:13:17.000000 +00:00",
+      "created_at": "2025-04-13 19:13:17.000000 +00:00"
+    }
+  }
+]
