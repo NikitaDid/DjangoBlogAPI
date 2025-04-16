@@ -22,7 +22,7 @@ class Article(models.Model):
     publish_date = models.DateTimeField(verbose_name='Publish Date')
     tags = models.ManyToManyField(to='Tag', verbose_name='Tags', blank=True) #blank for admin panel. We can now save article without a tag
     updated_at = models.DateTimeField(verbose_name='Updated Date', auto_now=True)
-    created_at = models.DateTimeField(verbose_name='Updated Date', auto_now_add=True)
+    created_at = models.DateTimeField(verbose_name='Created Date', auto_now_add=True)
 
     def __str__(self):
         return self.title
