@@ -1,0 +1,16 @@
+<h2>{{ article.title }}</h2>
+
+<p>{{ article.text }}</p>
+
+<p>
+    {% for tag in article.tags.all %}&nbsp;
+        <a href="{% url 'article_by_tag' tag_id=tag.id %}">#{{ tag.name }} </a>
+    {% endfor %}
+
+</p>
+
+<p style="text-align: right">
+    Data: <b>{{article.publish_date }}</b>
+    Category: <b>{{ category.name }}</b>
+</p>
+
