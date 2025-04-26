@@ -1,16 +1,23 @@
-<h2>{{ article.title }}</h2>
+{% extends 'base.html' %}
+{% block content %}
 
-<p>{{ article.text }}</p>
+    <h2>{{ article.title }}</h2>
+    {% if article.image %}
+        <img class="img-thumbnail" src="{{ article.image.url }}" alt="">
+    {% endif %}
 
-<p>
-    {% for tag in article.tags.all %}&nbsp;
-        <a href="{% url 'article_by_tag' tag_id=tag.id %}">#{{ tag.name }} </a>
-    {% endfor %}
+    <p>{{ article.text }}</p>
 
-</p>
+    <p>
+        {% for tag in article.tags.all %}&nbsp;
+            <a href="{% url 'article_by_tag' tag_id=tag.id %}">#{{ tag.name }} </a>
+        {% endfor %}
+
+    </p>
+{% endblock %}
 
 <p style="text-align: right">
-    Data: <b>{{article.publish_date }}</b>
+    Data: <b>{{ article.publish_date }}</b>
     Category: <b>{{ category.name }}</b>
 </p>
 
