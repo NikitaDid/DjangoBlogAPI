@@ -1,6 +1,9 @@
 from django.db import models
 from imagekit.models import ProcessedImageField, ImageSpecField
 from pilkit.processors import ResizeToFill
+from django.utils.safestring import mark_safe
+from config.settings import MEDIA_ROOT
+
 
 # Create your models here.
 
@@ -22,6 +25,18 @@ class BlogCategory(models.Model):
         verbose_name = 'Blog Category'
         verbose_name_plural = 'Blog Categories'
 
+    def image_tag_thumbnail(self):
+        if self.image:
+            return mark_safe(f"<img src='/{MEDIA_ROOT}{self.image}' width='70'>")
+
+    image_tag_thumbnail.short_description = 'Image'
+
+    def image_tag(self):
+        if self.image:
+            return mark_safe(f"<img src='/{MEDIA_ROOT}{self.image}'>")
+
+    image_tag.short_description = 'Image'
+
 
 class Article(models.Model):
     category = models.ForeignKey(to=BlogCategory, on_delete=models.CASCADE)
@@ -29,7 +44,8 @@ class Article(models.Model):
     text_preview = models.TextField(verbose_name='Text Preview', null=True, blank=True)
     text = models.TextField(verbose_name='Text Field')
     publish_date = models.DateTimeField(verbose_name='Publish Date')
-    tags = models.ManyToManyField(to='Tag', verbose_name='Tags', blank=True) #blank for admin panel. We can now save article without a tag
+    tags = models.ManyToManyField(to='Tag', verbose_name='Tags',
+                                  blank=True)  # blank for admin panel. We can now save article without a tag
     image = ProcessedImageField(
         verbose_name='Category Image',
         upload_to='blog/article/',
