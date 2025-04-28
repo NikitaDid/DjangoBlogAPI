@@ -44,8 +44,7 @@ class Article(models.Model):
     text_preview = models.TextField(verbose_name='Text Preview', null=True, blank=True)
     text = models.TextField(verbose_name='Text Field')
     publish_date = models.DateTimeField(verbose_name='Publish Date')
-    tags = models.ManyToManyField(to='Tag', verbose_name='Tags',
-                                  blank=True)  # blank for admin panel. We can now save article without a tag
+    tags = models.ManyToManyField(to='Tag', verbose_name='Tags', blank=True)  # blank for admin panel. We can now save article without a tag
     image = ProcessedImageField(
         verbose_name='Category Image',
         upload_to='blog/article/',
