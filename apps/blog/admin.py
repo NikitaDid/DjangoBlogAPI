@@ -27,13 +27,25 @@ class BlogCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', 'category_link', 'publish_date', 'created_at']
+    list_display = ['id', 'title', 'category_link', 'publish_date', 'created_at', 'tag_link']
     list_display_links = ['id', 'title']
     list_filter = ['category', 'tags', 'publish_date', 'created_at']
+
 
     def category_link(self, instance):
         url =  reverse('admin:blog_blogcategory_change', args=[instance.category_id])
         return format_html(f"<a href='{url}'>{instance.category.name}</a>")
 
+
+    def tag_link(self, instance):
+        tags = instance.tags.all()
+        data = []
+        for tag in tags:
+            url = reverse('admin:blog_tag_change', args=[instance.category_id])
+            data.append(f"<a href='{url}'>{tag.name}</a>")
+        result = ', '.join(data)
+        return format_html(result)
+
     category_link.short_description = 'Category'
+    tag_link.short_description = 'Tags'
 
