@@ -1,3 +1,4 @@
+from apps.user.models import User
 from django.db import models
 from imagekit.models import ProcessedImageField, ImageSpecField
 from pilkit.processors import ResizeToFill
@@ -40,6 +41,7 @@ class BlogCategory(models.Model):
 
 class Article(models.Model):
     category = models.ForeignKey(to=BlogCategory, on_delete=models.CASCADE)
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(verbose_name='Title', max_length=255)
     text_preview = models.TextField(verbose_name='Text Preview', null=True, blank=True)
     text = models.TextField(verbose_name='Text Field')
