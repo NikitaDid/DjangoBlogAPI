@@ -50,3 +50,19 @@ class Category(MPTTModel):
     class Meta:
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
+
+class Product(models.Model):
+    name = models.CharField(verbose_name='Name', max_length=255)
+    slug = models.CharField(255)
+    description = models.TextField(verbose_name='Description', null=True, blank=True)
+    quantity = models.IntegerField(verbose_name='Quantity', null=True, blank=True)
+    price = models.DecimalField(verbose_name='Price', max_digits=12, decimal_places=2, default=0)
+    created_at = models.DateTimeField(verbose_name='Created')
+    updated_at = models.DateTimeField(verbose_name='Updated', null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Product'
+        verbose_name_plural = 'Products'
