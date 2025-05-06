@@ -47,16 +47,21 @@ class Category(MPTTModel):
             parent = parent.parent
         return ' -> '.join(full_path[::-1])
 
+    def get_absolute_url(self):
+        return reverse('Categories', args=[self.slug])
+
     class Meta:
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
 
+
 class Product(models.Model):
     name = models.CharField(verbose_name='Name', max_length=255)
-    slug = models.CharField(255)
+    slug = models.CharField()
     description = models.TextField(verbose_name='Description', null=True, blank=True)
     quantity = models.IntegerField(verbose_name='Quantity', null=True, blank=True)
     price = models.DecimalField(verbose_name='Price', max_digits=12, decimal_places=2, default=0)
+    categories = models.ManyToManyField(Category, verbose_name='Categories', through='ProductCategory', blank=True)
     created_at = models.DateTimeField(verbose_name='Created')
     updated_at = models.DateTimeField(verbose_name='Updated', null=True, blank=True)
 
@@ -66,3 +71,18 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'Product'
         verbose_name_plural = 'Products'
+
+
+class ProductCategory(models.Model):  # Connecting product to different categories
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Category')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Product')
+    is_main = models.BooleanField(verbose_name='Main Category', default=False)
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        if self.is_main:
+            ProductCategory.objects.filter(product=self.product).update(is_main=False)
+        super().save(force_insert, force_update, using, update_fields)
+
+    class Meta:
+        verbose_name = 'Product Category'
+        verbose_name_plural = 'Product Categories'
