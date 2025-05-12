@@ -1,3 +1,4 @@
+from apps.main.mixins import MetaTagMixin
 from apps.user.models import User
 from django.db import models
 from imagekit.models import ProcessedImageField, ImageSpecField
@@ -8,7 +9,7 @@ from config.settings import MEDIA_ROOT
 
 # Create your models here.
 
-class BlogCategory(models.Model):
+class BlogCategory(MetaTagMixin):
     name = models.CharField(verbose_name='Category Name', max_length=255)
     # image = models.ImageField(verbose_name='Category Image', upload_to='blog/category/', null=True)
     image = ProcessedImageField(
@@ -39,7 +40,7 @@ class BlogCategory(models.Model):
     image_tag.short_description = 'Image'
 
 
-class Article(models.Model):
+class Article(MetaTagMixin):
     category = models.ForeignKey(to=BlogCategory, on_delete=models.CASCADE)
     user = models.ForeignKey(to=User, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(verbose_name='Title', max_length=255)
@@ -61,6 +62,11 @@ class Article(models.Model):
     updated_at = models.DateTimeField(verbose_name='Updated Date', auto_now=True)
     created_at = models.DateTimeField(verbose_name='Created Date', auto_now_add=True)
 
+    def get_meta_title(self):
+        if self.meta_title:
+            return self.meta_title
+        return self.name
+
     def __str__(self):
         return self.title
 
@@ -69,7 +75,7 @@ class Article(models.Model):
         verbose_name_plural = 'Articles'
 
 
-class Tag(models.Model):
+class Tag(MetaTagMixin):
     name = models.CharField(verbose_name='Tag Name', max_length=255)
 
     def __str__(self):  # using to show it is in a normal way in admin

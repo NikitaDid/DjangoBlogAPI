@@ -5,12 +5,13 @@ from mptt.models import MPTTModel, TreeForeignKey
 from django.urls import reverse
 from pilkit.processors import ResizeToFill
 
+from apps.main.mixins import MetaTagMixin
 from config.settings import MEDIA_ROOT
 
 
 # Create your models here.
 
-class Category(MPTTModel):
+class Category(MPTTModel, MetaTagMixin):
     name = models.CharField(verbose_name='Name', max_length=255)
     slug = models.SlugField(unique=True)
     description = models.TextField(verbose_name='Description', null=True, blank=True)
@@ -94,15 +95,16 @@ class ProductImage(models.Model):
         verbose_name_plural = 'Product Images'
 
 
-class Product(models.Model):
+class Product(MetaTagMixin):
     name = models.CharField(verbose_name='Name', max_length=255)
-    slug = models.CharField()
+    slug = models.CharField(unique=True, verbose_name='Slug')
     description = models.TextField(verbose_name='Description', null=True, blank=True)
     quantity = models.IntegerField(verbose_name='Quantity', null=True, blank=True)
     price = models.DecimalField(verbose_name='Price', max_digits=12, decimal_places=2, default=0)
     categories = models.ManyToManyField(Category, verbose_name='Categories', through='ProductCategory', blank=True)
     created_at = models.DateTimeField(verbose_name='Created')
     updated_at = models.DateTimeField(verbose_name='Updated', null=True, blank=True)
+
 
     def images(self):
         return ProductImage.objects.filter(product=self.id)
