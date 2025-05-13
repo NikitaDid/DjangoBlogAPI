@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.urls import reverse
+
 from apps.blog.models import BlogCategory, Article, Tag
 
 def blog_category_list(request):
@@ -8,7 +10,11 @@ def blog_category_list(request):
 def article_list(request, category_id):
     articles = Article.objects.filter(category_id=category_id) #by filter we can get several objects
     category = BlogCategory.objects.get(id=category_id) #by get we can get only one object
-    return render(request, 'blog/article_list.html', {'articles': articles, 'category': category})
+    breadcrumbs = {
+        reverse('blog_category_list'): 'Blog',
+        'current': category.name
+    }
+    return render(request, 'blog/article_list.html', {'articles': articles, 'category': category, 'breadcrumbs': breadcrumbs})
 
 def article_view(request, category_id, article_id):
     category = BlogCategory.objects.get(id=category_id) #by get we can get only one object
