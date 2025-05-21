@@ -34,8 +34,14 @@
             <img src="{% static 'img/logo.png' %}" alt="" id="logo">
         </div>
 
-        <div class="col-6"><p class="header-text">Unc was not lying. Life is moving pretty fast and you should not waste
-            your time.</p>
+        <div class="col-6">
+            <div><p class="header-text">Unc was not lying. Life is moving pretty fast</p> </div>
+
+            {% if request.user.is_authenticated %}
+                <p class="text-end">Hello {{ request.user.user }} (<a href="{% url 'logout' %}">Quit</a>)</p>
+            {% else %}
+                <p class="text-end"><a href="{% url 'login' %}">Login</a>&nbsp;<a href="{% url 'register' %}">Register</a> </p>
+            {% endif %}
         </div>
     </div>
     <div class="row main-menu">

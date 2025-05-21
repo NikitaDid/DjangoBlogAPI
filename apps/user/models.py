@@ -23,6 +23,7 @@ class User(AbstractUser):
         source='image',
         processors=[ResizeToFill(600, 400)],
     )
+    about = models.TextField(verbose_name='About', blank=True, null=True)
 
     def image_tag_thumbnail(self):
         if self.image:
