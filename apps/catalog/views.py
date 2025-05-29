@@ -26,7 +26,7 @@ class ProductsByCategoryView(generic.ListView):
 
 
         categories = []
-        parent = category.parent.parent
+        parent = category.parent
         while parent is not None:
             categories.append((reverse('Categories', args=[parent.slug]), parent.name))
             parent = parent.parent
@@ -56,7 +56,7 @@ class ProductDetailView(generic.DetailView):
         if category:
 
             categories = [(reverse('Categories', args=[category.slug]), category.name)]
-            parent = category.parent.parent
+            parent = category.parent
             while parent is not None:
                 categories.append((reverse('Categories', args=[parent.slug]), parent.name))
                 parent = parent.parent
