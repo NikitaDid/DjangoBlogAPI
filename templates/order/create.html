@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-    <h3 class="my-header">Оформление заказа!</h3>
+    <h3 class="my-header">Placing an order</h3>
     {% include 'order/_cart.html' %}
 
     <div class="row">
@@ -23,11 +23,11 @@
             <form method="post">
                 {% csrf_token %}
                 <div class="mb-3">
-                    <label for="first_name" class="form-label">Имя</label>
+                    <label for="first_name" class="form-label">Name</label>
                     <input type="text" class="form-control" id="first_name" name="first_name" value="{{ form.data.first_name }}" required>
                 </div>
                 <div class="mb-3">
-                    <label for="last_name" class="form-label">Фамилия</label>
+                    <label for="last_name" class="form-label">Last name</label>
                     <input type="text" class="form-control" id="last_name" name="last_name" required value="{{ form.data.last_name }}">
                 </div>
                 <div class="mb-3">
@@ -35,18 +35,18 @@
                     <input type="email" class="form-control" id="email" name="email" required value="{{ form.data.email }}">
                 </div>
                 <div class="mb-3">
-                    <label for="phone" class="form-label">Телефон</label>
+                    <label for="phone" class="form-label">Phone</label>
                     <input type="text" class="form-control" id="phone" name="phone" required value="{{ form.data.phone }}">
                 </div>
                 <div class="mb-3">
-                    <label for="address" class="form-label">Адрес</label>
+                    <label for="address" class="form-label">Address</label>
                     <textarea name="address" id="address" class="form-control" rows="3">{{ form.data.address }}</textarea>
                 </div>
                 <div class="mb-3">
-                    <label for="comment" class="form-label">Комментарий</label>
+                    <label for="comment" class="form-label">Comment</label>
                     <textarea name="comment" id="comment" class="form-control" rows="3">{{ form.data.comment }}</textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Создать заказ</button>
+                <button type="submit" class="btn btn-primary">Create an order</button>
             </form>
         </div>
     </div>
