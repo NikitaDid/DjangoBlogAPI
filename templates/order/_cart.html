@@ -2,12 +2,12 @@
 <table class="table">
     <thead>
     <tr>
-        <th scope="col">Фото</th>
-        <th scope="col">Товар</th>
-        <th scope="col">Количество</th>
-        <th scope="col">Цена</th>
-        <th scope="col">Сума</th>
-        <th scope="col">Удалить</th>
+        <th scope="col">Foto</th>
+        <th scope="col">Item</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Price</th>
+        <th scope="col">Total</th>
+        <th scope="col">Delete</th>
     </tr>
     </thead>
     <tbody>
@@ -21,15 +21,15 @@
             <td><a href="{% url 'product' slug=row.product.slug %}">{{ row.product.name }}</a></td>
             <td>{{ row.quantity }}</td>
             <td>{{ row.product.price }}</td>
-            <td>{{ row.product.price|mul:row.quantity }} грн.</td>
+            <td>{{ row.product.price|mul:row.quantity }} $</td>
             <td>
-                <button class="btn btn-danger">Удалить</button>
+                <a href="{% url 'delete_from_cart' product_id=row.product_id %}" class="btn btn-danger">Delete</a>
             </td>
         </tr>
     {% endfor %}
     <tr>
-        <td colspan="4" class="text-end"><b>Итого:</b></td>
-        <td colspan="2">{{ cart.total }} грн.</td>
+        <td colspan="4" class="text-end"><b>Total:</b></td>
+        <td colspan="2">{{ cart.total }} $</td>
     </tr>
     </tbody>
 </table>

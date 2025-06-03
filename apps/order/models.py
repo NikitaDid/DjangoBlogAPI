@@ -31,3 +31,14 @@ class Order(models.Model):
     class Meta:
         verbose_name = 'Order'
         verbose_name_plural = 'Orders'
+
+
+class OrderProduct(models.Model):
+    order = models.ForeignKey(Order, verbose_name='Order', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, verbose_name='Product', null=True, on_delete=models.SET_NULL)
+    price = models.DecimalField(verbose_name='Price', max_digits=12, decimal_places=2)
+    quantity = models.PositiveIntegerField(verbose_name='Quantity')
+
+    class Meta:
+        verbose_name = 'Order item'
+        verbose_name_plural = 'Order items'
