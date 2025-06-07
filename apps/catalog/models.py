@@ -102,8 +102,8 @@ class Product(MetaTagMixin):
     quantity = models.IntegerField(verbose_name='Quantity', null=True, blank=True)
     price = models.DecimalField(verbose_name='Price', max_digits=12, decimal_places=2, default=0)
     categories = models.ManyToManyField(Category, verbose_name='Categories', through='ProductCategory', blank=True)
-    created_at = models.DateTimeField(verbose_name='Created')
-    updated_at = models.DateTimeField(verbose_name='Updated', null=True, blank=True)
+    created_at = models.DateTimeField(verbose_name='Created', auto_now=True)
+    updated_at = models.DateTimeField(verbose_name='Updated', auto_now_add=True)
 
 
     def images(self):
