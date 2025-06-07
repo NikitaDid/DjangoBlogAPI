@@ -20,6 +20,7 @@ from config.views import index
 from django.conf.urls.static import static
 from config import settings
 
+# Connecting all urls from whole project
 urlpatterns = [
     path('', index, name='index'),
     path('admin/', admin.site.urls),
@@ -27,6 +28,7 @@ urlpatterns = [
     path('catalog/', include('apps.catalog.urls')),
     path('user/', include('apps.user.urls')),
     path('order/', include('apps.order.urls')),
+    path('api/', include('apps.api.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
