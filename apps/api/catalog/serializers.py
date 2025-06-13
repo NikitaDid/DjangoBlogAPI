@@ -2,6 +2,7 @@
 from rest_framework import serializers
 from apps.catalog.models import Category, Product, ProductImage
 
+
 class CategorySerializer(serializers.ModelSerializer):
     slug = serializers.CharField(write_only=True)
 
@@ -21,7 +22,6 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class ProductWriteSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Product
         fields = (
@@ -31,27 +31,10 @@ class ProductWriteSerializer(serializers.ModelSerializer):
             'description',
             'quantity',
             'price',
-        )
-
-class ProductReadSerializer(serializers.ModelSerializer):
-    categories = CategorySerializer(many=True)
-
-    class Meta:
-        model = Product
-        fields = (
-            'id',
-            'name',
-            'slug',
-            'description',
-            'quantity',
-            'price',
-            'categories'
         )
 
 
 class ProductImageSerializer(serializers.ModelSerializer):
-
-
     class Meta:
         model = ProductImage
         fields = (
@@ -61,3 +44,22 @@ class ProductImageSerializer(serializers.ModelSerializer):
             'is_main'
         )
 
+
+class ProductReadSerializer(serializers.ModelSerializer):
+    categories = CategorySerializer(many=True)
+    images = ProductImageSerializer(many=True)
+    main_image = ProductImageSerializer()
+
+    class Meta:
+        model = Product
+        fields = (
+            'id',
+            'images',
+            'main_image',
+            'name',
+            'slug',
+            'description',
+            'quantity',
+            'price',
+            'categories'
+        )
