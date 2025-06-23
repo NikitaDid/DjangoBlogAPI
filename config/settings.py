@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'mathfilters',
     'rest_framework',
     'rest_framework.authtoken',
+    'tinymce',
+    'adminsortable2',
 
     'apps.blog',
     'apps.user',

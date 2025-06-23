@@ -1,7 +1,6 @@
 {% load static %}
 
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +9,7 @@
 
     {% block meta_tags %}
 
-        <title>Schopping Center. Yopti</title>
+        <title>Some interesting name of your</title>
         <meta name="description" content="The best clothe ever">
         <meta name="keywords" content="clothe, clotheshop, style">
 
@@ -18,6 +17,8 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'lightbox/css/lightbox.css' %}">
+    <link rel="stylesheet" href="{% static 'owlcarousel2/assets/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'owlcarousel2/assets/owl.theme.default.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <script
             src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -25,6 +26,8 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{% static 'lightbox/js/lightbox.js' %}"></script>
+    <script src="{% static 'lightbox/js/lightbox.min.js' %}"></script>
+    <script src="{% static 'owlcarousel2/owl.carousel.min.js' %}"></script>
 </head>
 <body>
 
@@ -35,12 +38,13 @@
         </div>
 
         <div class="col-6">
-            <div><p class="header-text">Unc was not lying. Life is moving pretty fast</p> </div>
+            <div><p class="header-text">Unc was not lying. Life is moving pretty fast</p></div>
 
             {% if request.user.is_authenticated %}
                 <p class="text-end">Hello {{ request.user.user }} (<a href="{% url 'logout' %}">Quit</a>)</p>
             {% else %}
-                <p class="text-end"><a href="{% url 'login' %}">Login</a>&nbsp;<a href="{% url 'register' %}">Register</a> </p>
+                <p class="text-end"><a href="{% url 'login' %}">Login</a>&nbsp;<a
+                        href="{% url 'register' %}">Register</a></p>
             {% endif %}
         </div>
     </div>
@@ -63,10 +67,14 @@
                             <a class="nav-link" href="{% url 'Catalog' %}">Catalog</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'blog_category_list' %}">Category</a>
+                            <a class="nav-link" href="{% url 'page' slug='about' %}">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'blog_category_list' %}">About</a>
+                            <a class="nav-link" href="{% url 'page' slug='payment-and-shipping' %}">Payment and
+                                shipping</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'page' slug='contacts' %}">Contacts</a>
                         </li>
                     </ul>
                 </div>
