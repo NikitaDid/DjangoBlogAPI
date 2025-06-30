@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 
-
 {% block meta_tags %}
     {% include '_meta_tags.html' with meta_title=article.get_meta_title meta_description=article.meta_description meta_keywords=article.meta_keywords %}
 {% endblock %}
@@ -38,10 +37,65 @@
         {% endfor %}
 
     </p>
+    <p style="text-align: right">
+        Data: <b>{{ article.publish_date }}</b>
+        Category: <b>{{ category.name }}</b>
+    </p>
+
+
+    <div class="row">
+        <div class="col-sm-12 col-md-3"></div>
+        <div class="col-sm-12 col-md-6">
+            <h3 class="my-header">Left a comment</h3>
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+            <form method="post" action="{% url 'create_comment' article_id=article.id %}">
+                {% csrf_token %}
+
+                {% if not request.user.is_authenticated %}
+
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">E-mail</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+
+                {% endif %}
+
+                <div class="mb-3">
+                    <label for="text" class="form-label">Comment text</label>
+                    <textarea name="text" id="text" rows="4" class="form-control" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save</button>
+
+            </form>
+        </div>
+    </div>
+    {% if comments %}
+
+    <div class="row">
+        <div class="col-sm-12 col-md-3"></div>
+        <div class="col-sm-12 col-md-6">
+            <h3 class="text-center">Comments</h3>
+            {% for comment in comments %}
+            	{% if comments.user %}
+            		<p><b>{{ comment.user.first_name }} {{ comment.user.last_name }}</b></p>
+                {% else %}
+                    <p><b>{{ comment.name }}</b></p>
+            	{% endif %}
+                <blockquoter>{{ comment.text }}</blockquoter>
+                <p class="text-end"><i>{{ comment.publish_date  }}</i></p>
+                <hr>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
 {% endblock %}
-
-<p style="text-align: right">
-    Data: <b>{{ article.publish_date }}</b>
-    Category: <b>{{ category.name }}</b>
-</p>
-

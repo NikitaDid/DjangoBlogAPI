@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h3 class="my-header">Thanks! Your comment was added.</h3>
+    {% if not comment %}
+    	<p class="text-info">Your comment has been sent for moderation.</p>
+    {% endif %}
+    <p class="text-center"> <a href="{% url 'blog_article_view' category_id=article.category_id article_id=article.id %}">Back</a> </p>
+{% endblock %}
