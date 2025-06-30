@@ -1,9 +1,10 @@
 from django.contrib import admin
-from apps.blog.models import BlogCategory, Article, Tag
+from django.template.defaulttags import comment
+
+from apps.blog.models import BlogCategory, Article, Tag, Comment
 from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.html import urlencode
-
 
 # Register your models here.
 
@@ -12,7 +13,7 @@ admin.site.register(Tag)
 
 @admin.register(BlogCategory)
 class BlogCategoryAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name','image_tag_thumbnail', 'article_count']
+    list_display = ['id', 'name', 'image_tag_thumbnail', 'article_count']
     list_display_links = ['id', 'name', 'image_tag_thumbnail']
     fields = ['name', 'image_tag', 'image', 'meta_title', 'meta_description', 'meta_keywords']
     readonly_fields = ['image_tag']
@@ -31,11 +32,9 @@ class ArticleAdmin(admin.ModelAdmin):
     list_display_links = ['id', 'title']
     list_filter = ['category', 'tags', 'publish_date', 'created_at']
 
-
     def category_link(self, instance):
-        url =  reverse('admin:blog_blogcategory_change', args=[instance.category_id])
+        url = reverse('admin:blog_blogcategory_change', args=[instance.category_id])
         return format_html(f"<a href='{url}'>{instance.category.name}</a>")
-
 
     def tag_link(self, instance):
         tags = instance.tags.all()
@@ -49,3 +48,8 @@ class ArticleAdmin(admin.ModelAdmin):
     category_link.short_description = 'Category'
     tag_link.short_description = 'Tags'
 
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ['id','user', 'name', 'article', 'is_checked', 'publish_date']
+    list_display_links = ['id', 'name']

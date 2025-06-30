@@ -84,3 +84,17 @@ class Tag(MetaTagMixin):
     class Meta:  # Human-readable singular name for admin panel
         verbose_name = 'Tag'
         verbose_name_plural = 'Tags'
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(User,  null=True, blank=True, on_delete=models.CASCADE) #if user is not connected to User
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    text = models.TextField(verbose_name='Text')
+    name = models.CharField(max_length=100, verbose_name='Author Name')
+    email = models.EmailField(verbose_name='Author Email')
+    publish_date = models.DateTimeField(verbose_name='Publish date', auto_now_add=True)
+    is_checked = models.BooleanField(verbose_name='Approved', default=False)
+
+    class Meta:
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comments'
